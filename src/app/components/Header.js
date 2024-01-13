@@ -6,7 +6,7 @@ const Header = (props) => {
     const {title, email} = props
   return (
     <>
-        <header className='border border-slate-200 w-full lg:flex lg:justify-between px-6'>
+        <header className='border border-slate-200 w-full flex flex-wrap lg:flex-nowrap justify-between px-6'>
             <div className='self-center'>
                 <Link href={'/'} className='flex gap-x-3 font-semibold'>
                         {parse(title)}
