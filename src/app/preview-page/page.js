@@ -78,12 +78,8 @@ function PreviewPage() {
                             }
                         >
                             <div className="mb-4 col-span-3">
-                                {/* <label
-                                    className="block mb-2 font-bold text-gray-700"
-                                    htmlFor="name"
-                                >
-                                    Name
-                                </label> */}
+                                {/* Company Name */}
+                               
                                 <input
                                     className="w-full px-3 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-blue-500"
                                     type="text"
@@ -94,12 +90,7 @@ function PreviewPage() {
                                 />
                             </div>
                             <div className="mb-4 col-span-3">
-                                {/* <label
-                                    className="block mb-2 font-bold text-gray-700"
-                                    htmlFor="company"
-                                >
-                                    Name of Company applying to
-                                </label> */}
+                               {/* Company Address */}
                                 <input
                                     className="w-full px-3 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-blue-500"
                                     type="text"
@@ -110,7 +101,7 @@ function PreviewPage() {
                                 />
                             </div>
                             <div className="mb-4 col-span-3">
-
+                                {/* Company address: city */}
                                 <input
                                     className="w-full px-3 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-blue-500 "
                                     type="text"
@@ -121,10 +112,11 @@ function PreviewPage() {
                                 />
                             </div>
 
+                            {/* Letter body type */}
+
                             <div className="mb-4 col-span-3 flex justify-between">
                                 <span
                                     className="font-bold text-gray-700"
-                                // htmlFor="degree"
                                 >
                                     Letter Body type
                                 </span>
@@ -169,8 +161,9 @@ function PreviewPage() {
 
                                 </div>
 
-
                             </div>
+
+                            {/* Greeting of the letter */}
                             <div className="mb-4 col-span-3">
                                 <input
                                     className="w-full px-3 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-blue-500"
@@ -181,6 +174,8 @@ function PreviewPage() {
                                     required
                                 />
                             </div>
+
+                            {/* 1st paragraph */}
                             <div className="mb-4 col-span-3">
                                 <textarea
                                     className="w-full px-3 py-2 h-[8rem] border rounded-lg text-gray-700 focus:outline-none focus:border-blue-500"
@@ -190,6 +185,8 @@ function PreviewPage() {
                                     required
                                 ></textarea>
                             </div>
+
+                            {/* Second Paragraph */}
                             <div className="mb-4 col-span-3">
                                 <textarea
                                     className="w-full px-3 py-2 h-[8rem] border rounded-lg text-gray-700 focus:outline-none focus:border-blue-500"
@@ -201,6 +198,8 @@ function PreviewPage() {
                                 ></textarea>
 
                             </div>
+
+                            {/* Third paragraph */}
                             <div className="mb-4 col-span-3">
                                 <textarea
                                     className="w-full px-3 py-2 h-[8rem] border rounded-lg text-gray-700 focus:outline-none focus:border-blue-500"
@@ -211,6 +210,7 @@ function PreviewPage() {
                                 ></textarea>
                             </div>
 
+                            {/* Closing */}
                             <div className="mb-4 col-span-3">
                                 <input
                                     className="w-full px-3 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-blue-500"
@@ -222,6 +222,7 @@ function PreviewPage() {
                                 />
                             </div>
 
+                            {/* Generate button */}
                             <div className="flex justify-center mb-20 col-span-3">
                                 <button
                                     className="  bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
