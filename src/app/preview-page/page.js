@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { letterDBKey, getDBData, saveDBData } from "../util";
 import Swal from "sweetalert2";
 import { v4 as uuidv4 } from 'uuid';
+import Image from "next/image";
 
 
 function PreviewPage() {
@@ -165,7 +166,7 @@ function PreviewPage() {
 
             {/* Section 1 */}
             <section className="min-h-screen w-[7%] flex flex-col items-center gap-y-8  bg-[#163677] pt-8">
-                <img src="https://res.cloudinary.com/dtduf2ehv/image/upload/v1705192985/samples/oo3nspjcwzd8mbvjeowh.jpg" alt="Logo" className='lg:w-[2.5rem] lg:h-[2.5rem] w-[1.5rem] h-[1.5rem] rounded-full' />
+                <Image src="https://res.cloudinary.com/dtduf2ehv/image/upload/v1705192985/samples/oo3nspjcwzd8mbvjeowh.jpg" width={0} height={0} alt="Logo" className='lg:w-[2.5rem] lg:h-[2.5rem] w-[1.5rem] h-[1.5rem] rounded-full' />
                 <button className="bg-[#0B58F4] px-1 lg:px-4 lg:py-2 py-0.5 text-center text-white rounded-sm">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />

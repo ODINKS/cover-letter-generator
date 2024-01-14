@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { letterDBKey, getDBData, saveDBData } from "./util";
 import Swal from "sweetalert2";
 import CoverLetter from './components/CoverLetter';
+import Image from 'next/image';
 
 function Dashboard() {
     const [isMenuOpen, setIsMenuOpen] = useState(null)
@@ -58,7 +59,7 @@ function Dashboard() {
 
                     {/* Logo */}
                     <div className='flex'>
-                        <img src="https://res.cloudinary.com/dtduf2ehv/image/upload/v1705192985/samples/oo3nspjcwzd8mbvjeowh.jpg" alt="Logo" className='w-12 h-12 rounded-full' />
+                        <Image width={0} height={0} src="https://res.cloudinary.com/dtduf2ehv/image/upload/v1705192985/samples/oo3nspjcwzd8mbvjeowh.jpg" alt="Logo" className='w-12 h-12 rounded-full' />
 
                         <span className='text-white font-semibold self-center'>CVSTUDIO</span>
 
