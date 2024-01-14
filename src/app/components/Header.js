@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import parse from 'html-react-parser';
+import Image from 'next/image'
 
 
 const Header = (props) => {
@@ -15,7 +16,7 @@ const Header = (props) => {
 
             <div className='flex lg:justify-between gap-x-5 py-3'>
                 
-                    <img src="https://res.cloudinary.com/dtduf2ehv/image/upload/v1705113902/j4utweqw9tl7lzlhkkff.jpg" alt="Logo" className='w-[3rem] h-[3rem] rounded-full border border-slate-300' />
+                    <Image src="https://res.cloudinary.com/dtduf2ehv/image/upload/v1705113902/j4utweqw9tl7lzlhkkff.jpg" alt="Logo" width={0} height={0} className='w-[3rem] h-[3rem] rounded-full border border-slate-300' />
                 <span className='self-center'>
                     {email}
                 </span>
