@@ -20,16 +20,8 @@ function Dashboard() {
     }
 
     async function fetchLettersData() {
-        try {
-            return await getDBData(letterDBKey)
-        } catch (error) {
-            Swal.fire({
-                title: "Error!",
-                text: `${error.message}`,
-                icon: "error",
-                confirmButtonText: "ok",
-            })
-        }
+            const data = await getDBData(letterDBKey)
+            return data
     }
 
     useEffect(() => {
