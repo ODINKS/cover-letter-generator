@@ -4,10 +4,6 @@ export const letterDBKey = process.env.NEXT_PUBLIC_Seceret_Key_API
 
 
 export function getDBData(DBKey){
-    if(!DBKey){
-        return
-    }
-
     return JSON.parse(localStorage.getItem(DBKey)) || []
 }
 export function saveDBData(DBKey, DBData){
