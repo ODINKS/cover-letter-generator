@@ -1,35 +1,171 @@
 "use client";
 import Header from "../components/Header";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { letterDBKey, getDBData, saveDBData } from "../util";
+import Swal from "sweetalert2";
 
 
 function PreviewPage() {
     const [loading, setLoading] = useState(false);
-    const [name, setName] = useState("");
-    const [company, setCompany] = useState("");
-    const [degree, setDegree] = useState("");
-    const [position, setPosition] = useState("");
-    const [experience, setExperience] = useState("");
-    const [specialtyOne, setSpecialtyOne] = useState("");
-    const [specialtyTwo, setSpecialtyTwo] = useState("");
-    const [selectedValue, setSelectedValue] = useState(null);
+    const [companyName, setCompanyName] = useState("");
+    const [companyAddressOne, setCompanyAddressOne] = useState("");
+    const [companyAddressTwo, setCompanyAddressTwo] = useState("");
+    const [selectedValue, setSelectedValue] = useState("");
+    const [greeting, setGreeting] = useState("");
+    const [paragraphOne, setParagraphOne] = useState("");
+    const [paragraphTwo, setParagraphTwo] = useState("");
+    const [paragraphThree, setParagraphThree] = useState("");
+    const [closing, setClosing] = useState("");
+    const [currentLetter, setCurrentLetter] = useState(null)
+    // const [letterData, setLetterData] = useState("")
+
+
 
     const title = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
     <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 15.75 3 12m0 0 3.75-3.75M3 12h18" />
   </svg><span>Create Cover Letter</span>
   `
 
-    const handleRadioChange = (event) => {
+    function handleRadioChange(event) {
         setSelectedValue(event.target.value);
     };
+
+    async function fetchLetterData() {
+        try {
+            const data = await getDBData('currentData')
+            if(Array.isArray(data)){
+                return null
+            }
+            return data
+        } catch (error) {
+            Swal.fire({
+                title: "Error!",
+                text: `${error.message}`,
+                icon: "error",
+                confirmButtonText: "ok",
+            })
+        }
+    }
+
+    useEffect(() => {
+        async function getCurrentData(){
+            const recentLetterData = await fetchLetterData()
+            setCurrentLetter(recentLetterData)
+        }
+
+        getCurrentData()
+        
+    }, [])
+
+    async function handleSubmit(event) {
+        try {
+            event.preventDefault()
+            setLoading(true)
+            setTimeout(() => {
+                setLoading(false)
+            }, 2000)
+
+            const singleLetterDetail = {
+                id: (Math.random() * 11),
+                companyName,
+                companyAddressOne,
+                companyAddressTwo,
+                selectedValue,
+                greeting,
+                paragraphOne,
+                paragraphTwo,
+                paragraphThree,
+                closing,
+                createdAt: Date.now()
+            }
+
+            const storedLetterData = await getDBData(letterDBKey)
+            storedLetterData.push(singleLetterDetail)
+            saveDBData(letterDBKey, storedLetterData)
+            saveDBData('currentData', singleLetterDetail)
+            setCurrentLetter(singleLetterDetail)
+
+            Swal.fire({
+                title: "Success!",
+                text: `Letter created successfully!`,
+                icon: "success",
+                confirmButtonText: "ok",
+            })
+
+        } catch (error) {
+            Swal.fire({
+                title: "Error!",
+                text: `${error.message}`,
+                icon: "error",
+                confirmButtonText: "ok",
+            })
+        }
+    }
+    
+    // Delete a generated cover letter
+    async function deleteACoverLetter() {
+        try {
+            const currentCoverLetter = await getDBData('currentData');
+                
+            if (currentCoverLetter.length === 0) {
+                await Swal.fire({
+                    title: "Error!",
+                    text: `Cover letter does not exist!`,
+                    icon: "error",
+                    confirmButtonText: "ok",
+                })
+                return; 
+            }
+    
+            const confirmResult = await Swal.fire({
+                title: "Warning!",
+                text: `Would you like to delete this cover letter?`,
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: "ok",
+                cancelButtonText: "cancel"
+            });
+    
+            if (!confirmResult.isConfirmed) {
+                return;
+            
+            }
+            
+
+            const currentId = currentCoverLetter.id;
+    
+            const coverLetterDB = getDBData(letterDBKey);
+            const newCoverLetterDB = coverLetterDB.filter(coverletter => coverletter.id !== currentId);
+    
+            saveDBData('currentData', '');
+            saveDBData(letterDBKey, newCoverLetterDB);
+    
+            await Swal.fire({
+                title: "Success!",
+                text: `Letter deleted successfully!`,
+                icon: "success",
+                confirmButtonText: "ok",
+            });
+    
+        } catch (error) {
+            await Swal.fire({
+                title: "Error!",
+                text: `${error.message}`,
+                icon: "error",
+                confirmButtonText: "ok",
+            });
+        }
+    }
+    
+
 
     return (
         <main className="flex min-h-[100vh]">
 
             {/* Section 1 */}
-            <section className="min-h-screen w-[5%] flex flex-col items-center gap-y-8  bg-[#163677] pt-8">
-                <img src="https://res.cloudinary.com/dtduf2ehv/image/upload/v1705113902/j4utweqw9tl7lzlhkkff.jpg" alt="Logo" className='w-[2.5rem] h-[2.5rem]' />
-                <button className="bg-[#0B58F4] px-4 py-2 text-center text-white rounded-sm">
+            <section className="min-h-screen w-[7%] flex flex-col items-center gap-y-8  bg-[#163677] pt-8">
+                <img src="https://res.cloudinary.com/dtduf2ehv/image/upload/v1705192985/samples/oo3nspjcwzd8mbvjeowh.jpg" alt="Logo" className='lg:w-[2.5rem] lg:h-[2.5rem] w-[1.5rem] h-[1.5rem] rounded-full' />
+                <button className="bg-[#0B58F4] px-1 lg:px-4 lg:py-2 py-0.5 text-center text-white rounded-sm">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                     </svg>
@@ -39,20 +175,72 @@ function PreviewPage() {
 
             {/* Section 2 */}
             <section className="w-full min-h-screen bg-[#F8FAFE]">
+                {/* Header */}
                 <Header title={title} email={'nicholas.okeke87@gmail.com'} />
-                {/* section 2a */}
-                <div className="flex px-10 w-full h-full">
-                    <section className="w-1/2 py-5">
-                        <h1>Cover Letter For Design</h1>
-                        {/* Preview of the generated letter */}
-                        <div>
 
+                {/* section 2a */}
+                <div className="flex flex-col lg:flex-row px-10 w-full h-full">
+                    {/* Section 2a1 */}
+                    <section className="w-1/2 py-5 pr-10 w-full lg:w-1/2">
+                        <h1 className="mb-4">Cover Letter For Design</h1>
+
+                        {/* Preview of the generated letter */}
+                        <div className="flex flex-col w-full max-w-2xl mx-auto p-8 pt-16 border  h-[297mm] text-sm shadow-lg rounded-md">
+                            {/* Section one */}
+                            <section className="flex justify-between flex-wrap">
+                                <div className=" flex flex-col justify-between">
+                                    <h1 className="text-xl font-bold text-[#0B58F4]">{'Nicholas Okeke'}</h1>
+                                    <p className="font-bold">Frontend Developer</p>
+                                </div>
+                                <div className="flex flex-col justify-between">
+                                    <p>{'linkedIn.com/nicholas-okeke'}</p>
+                                    <p>{'nicholas.okeke87@gmail.com'}</p>
+                                    <p>{'+234-8163565148'}</p>
+                                </div>
+                            </section>
+                            <hr className="border-t-[0.2rem] border-[#1636778a] mt-[1rem] mb-[4rem]" />
+
+                            {/* Section two */}
+                            <section className="flex flex-col gap-y-7">
+                                {/* Company's Adress */}
+                                <div>
+                                    <p>{currentLetter ? (new Date()).toDateString() : `[Today's Date]`}</p>
+                                    <p>{currentLetter ? currentLetter.companyName : `[Company Name]`}</p>
+                                    <p>{currentLetter ? `${currentLetter.companyAddressOne} ${currentLetter.companyAddressTwo}` : `[Company Mailing Address]`}</p>
+                                </div>
+
+                                <p className="text-[#0B58F4] font-bold">{currentLetter ? `${currentLetter.greeting.includes(`${'Dear'.toLocaleLowerCase()}`) ? currentLetter.greeting : `Dear ${currentLetter.greeting}`},`: `Dear [name],` }</p>
+
+                                {/* Paragraph 1 */}
+                                <p>
+                                    {currentLetter ? currentLetter.paragraphOne : 'Opening paragraph: Et vel malesuada dolor sed diam. Aliquam habitasse pellentesque viverra elementum, habitant donec interdum facilisis sit.'}
+                                </p>
+                                {/* Paragraph 2 */}
+                                <p>
+                                    {currentLetter ? currentLetter.paragraphTwo : 'Body paragraphs: Eu, elit a aenean placerat libero at diam eget pharetra. Viverra est arcu suspendisse ac dictum maecenas. Maecenas at interdum egestas et diam facilisis vestibulum vestibulum. Varius in nulla tincidunt lacus, neque consectetur. Nibh nisl adipiscing tempus euismod. Eget posuere neque tristique enim non pellentesque eu facilisi.'}
+                                </p>
+                                {/* Paragraph 3 */}
+                                <p>
+                                    {currentLetter ? currentLetter.paragraphThree : 'Closing paragraph: Enim sociis dui fermentum eu. Auctor sit volutpat netus nec volutpat sit pharetra mauris. Et aliquam vivamus sed iaculis tincidunt tincidunt libero lectus. Nibh nibh elementum, nisi, vestibulum sed vulputate quisque diam tristique. A volutpat in quis felis cursus.'}
+                                </p>
+
+                                {/* Conclusion */}
+                                <p>
+                                    {`Best wishes,`}
+                                </p>
+                                {/* Writer's name */}
+                                <p>
+                                    {`Nicholas`}
+                                </p>
+                            </section>
                         </div>
                     </section>
-                    <section className="flex flex-col gap-y-5 py-5 w-1/2 pl-12 bg-[white]">
-                        <header className="flex justify-between">
+                    {/* Section 2b2 */}
+                    <section className="flex flex-col gap-y-5 py-5 lg:w-1/2 pl-12 bg-[white] w-full">
+                        <header className="flex justify-between flex-wrap gap-3 lg:gap-1">
                             <h1 className="w-[90%] text-center border border-slate-200 py-3 bg-[#F8FAFE] rounded-md flex items-center justify-center">Letter Body</h1>
-                            <button className="bg-[#163677] px-4 py-2 text-center text-white rounded-md">
+                            <button className="bg-[#163677] px-4 py-4 text-center text-white rounded-md self-center" 
+                            type="button">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                                 </svg>
@@ -60,7 +248,9 @@ function PreviewPage() {
                             </button>
                         </header>
                         <div className="w-full flex justify-end">
-                            <button className="flex gap-x-3">
+                            <button className="flex gap-x-3" 
+                            onClick={deleteACoverLetter}
+                            >
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 self-center">
                                     <path strokeLinecap="round" strokeLinejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
                                 </svg>
@@ -70,33 +260,31 @@ function PreviewPage() {
                                 </span>
                             </button>
                         </div>
-                        {/* Input for the letter */}
-                        <form className="grid grid-cols-3"
-                            onSubmit={
-                                (event) => { event.preventDefault() }
-                                // handleSubmit
-                            }
+
+                        {/* Input form for the letter */}
+                        <form className="grid grid-cols-1 lg:grid-cols-3 text-md"
+                            onSubmit={handleSubmit}
                         >
                             <div className="mb-4 col-span-3">
                                 {/* Company Name */}
-                               
+
                                 <input
                                     className="w-full px-3 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-blue-500"
                                     type="text"
                                     placeholder="Company Name"
-                                    value={name}
-                                    // onChange={(e) => setName(e.target.value)}
+                                    value={companyName}
+                                    onChange={(e) => setCompanyName(e.target.value)}
                                     required
                                 />
                             </div>
                             <div className="mb-4 col-span-3">
-                               {/* Company Address */}
+                                {/* Company Address */}
                                 <input
                                     className="w-full px-3 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-blue-500"
                                     type="text"
                                     placeholder="Company Address: Street"
-                                    value={company}
-                                    // onChange={(e) => setCompany(e.target.value)}
+                                    value={companyAddressOne}
+                                    onChange={(e) => setCompanyAddressOne(e.target.value)}
                                     required
                                 />
                             </div>
@@ -106,22 +294,22 @@ function PreviewPage() {
                                     className="w-full px-3 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-blue-500 "
                                     type="text"
                                     placeholder="Company Address: City"
-                                    value={position}
-                                    // onChange={(e) => setPosition(e.target.value)}
+                                    value={companyAddressTwo}
+                                    onChange={(e) => setCompanyAddressTwo(e.target.value)}
                                     required
                                 />
                             </div>
 
                             {/* Letter body type */}
 
-                            <div className="mb-4 col-span-3 flex justify-between">
+                            <div className="mb-4 col-span-3 flex justify-between flex-wrap">
                                 <span
                                     className="font-bold text-gray-700"
                                 >
                                     Letter Body type
                                 </span>
 
-                                <div className="flex gap-x-8">
+                                <div className="flex gap-x-8 flex-wrap">
 
                                     <div className="flex gap-x-3">
                                         <input
@@ -169,8 +357,8 @@ function PreviewPage() {
                                     className="w-full px-3 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-blue-500"
                                     type="text"
                                     placeholder="Greeting"
-                                    value={degree}
-                                    // onChange={(e) => setDegree(e.target.value)}
+                                    value={greeting}
+                                    onChange={(e) => setGreeting(e.target.value)}
                                     required
                                 />
                             </div>
@@ -180,8 +368,8 @@ function PreviewPage() {
                                 <textarea
                                     className="w-full px-3 py-2 h-[8rem] border rounded-lg text-gray-700 focus:outline-none focus:border-blue-500"
                                     placeholder="1st Paragraph: Briefly introduce Yourself"
-                                    value={experience}
-                                    // onChange={(e) => setExperience(e.target.value)}
+                                    value={paragraphOne}
+                                    onChange={(e) => setParagraphOne(e.target.value)}
                                     required
                                 ></textarea>
                             </div>
@@ -191,9 +379,9 @@ function PreviewPage() {
                                 <textarea
                                     className="w-full px-3 py-2 h-[8rem] border rounded-lg text-gray-700 focus:outline-none focus:border-blue-500"
                                     placeholder="2nd Paragraph:Why You? Why this Company?"
-                                    value={experience}
+                                    value={paragraphTwo}
 
-                                    // onChange={(e) => setExperience(e.target.value)}
+                                    onChange={(e) => setParagraphTwo(e.target.value)}
                                     required
                                 ></textarea>
 
@@ -204,8 +392,8 @@ function PreviewPage() {
                                 <textarea
                                     className="w-full px-3 py-2 h-[8rem] border rounded-lg text-gray-700 focus:outline-none focus:border-blue-500"
                                     placeholder="3rd Paragraph:Call to action"
-                                    value={experience}
-                                    // onChange={(e) => setExperience(e.target.value)}
+                                    value={paragraphThree}
+                                    onChange={(e) => setParagraphThree(e.target.value)}
                                     required
                                 ></textarea>
                             </div>
@@ -216,8 +404,8 @@ function PreviewPage() {
                                     className="w-full px-3 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-blue-500"
                                     type="text"
                                     placeholder="Closing"
-                                    value={degree}
-                                    // onChange={(e) => setDegree(e.target.value)}
+                                    value={closing}
+                                    onChange={(e) => setClosing(e.target.value)}
                                     required
                                 />
                             </div>
@@ -225,7 +413,7 @@ function PreviewPage() {
                             {/* Generate button */}
                             <div className="flex justify-center mb-20 col-span-3">
                                 <button
-                                    className="  bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                                    className="text-xs lg:text-lg  bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                                     type="submit"
                                 >
                                     {loading ? "loading..." : "Generate Cover Letter"}
