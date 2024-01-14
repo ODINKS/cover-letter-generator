@@ -18,7 +18,8 @@
     "pdf-lib": "^1.17.1",
     "react": "^18",
     "react-dom": "^18",
-    "sweetalert2": "^11.10.3"
+    "sweetalert2": "^11.10.3",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
     "autoprefixer": "^10.0.1",

@@ -127,7 +127,7 @@ function Dashboard() {
                             {currentDB?.map(letter => {
                                 return (<div>
                                     <CoverLetter
-                                        key={`letter-${letter.id}`}
+                                        key={`${letter.id}`}
                                         createdAt={(new Date(letter.createdAt)).toDateString()}
                                         companyName={letter.companyName}
                                         companyAddressOne={letter.companyAddressOne}

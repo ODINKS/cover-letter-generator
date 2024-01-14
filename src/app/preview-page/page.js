@@ -3,6 +3,7 @@ import Header from "../components/Header";
 import { useEffect, useState } from "react";
 import { letterDBKey, getDBData, saveDBData } from "../util";
 import Swal from "sweetalert2";
+import { v4 as uuidv4 } from 'uuid';
 
 
 function PreviewPage() {
@@ -66,7 +67,7 @@ function PreviewPage() {
             }, 2000)
 
             const singleLetterDetail = {
-                id: (Math.random() * 11),
+                id: uuidv4(),
                 companyName,
                 companyAddressOne,
                 companyAddressTwo,
