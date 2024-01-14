@@ -33,20 +33,11 @@ function PreviewPage() {
     };
 
     async function fetchLetterData() {
-        try {
             const data = await getDBData('currentData')
             if(Array.isArray(data)){
                 return null
             }
             return data
-        } catch (error) {
-            Swal.fire({
-                title: "Error!",
-                text: `${error.message}`,
-                icon: "error",
-                confirmButtonText: "ok",
-            })
-        }
     }
 
     useEffect(() => {
