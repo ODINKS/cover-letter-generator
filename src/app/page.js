@@ -126,7 +126,7 @@ function Dashboard() {
 
                             {/* Other dynamic content */}
                             {currentDB?.map(letter => {
-                                return (<div>
+                                return (
                                     <CoverLetter
                                         key={letter.id}
                                         createdAt={(new Date(letter.createdAt)).toDateString()}
@@ -137,8 +137,7 @@ function Dashboard() {
                                         paragraphOne={letter.paragraphOne}
                                         paragraphTwo={letter.paragraphTwo}
                                         paragraphThree={letter.paragraphThree}
-                                    />
-                                </div>)
+                                    />)
                             })}
                         </section>
                     </div>
