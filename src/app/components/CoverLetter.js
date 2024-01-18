@@ -5,7 +5,7 @@ function CoverLetter(props){
   const  {createdAt, companyName, companyAddressOne, companyAddressTwo, greeting, paragraphOne, paragraphTwo, paragraphThree,} = props
   return (
     <>
-      <div className="flex flex-col border w-[105mm] p-8 pt-16  h-[148.5mm] text-[0.5rem] shadow-lg rounded-md">
+      <div className="flex flex-col border xs:bg-red w-[90mm] md:w-[110mm] lg:w-[105mm] p-8 pt-16  h-[130mm] text-[0.5rem] shadow-lg rounded-md">
         {/* Section one */}
         <section className="flex justify-between flex-wrap">
           <div className=" flex flex-col justify-between">
@@ -18,7 +18,7 @@ function CoverLetter(props){
             <p>{'+234-8163565148'}</p>
           </div>
         </section>
-        <hr className="border-t-[0.2rem] border-[#1636778a] mt-[0.5rem] mb-[2rem]" />
+        <hr className="border-t-[0.15rem] opacity-50 border-[#0f47b68a]  mt-[0.5rem] mb-[2rem]" />
 
         {/* Section two */}
         <section className="flex flex-col gap-y-2">
@@ -29,7 +29,7 @@ function CoverLetter(props){
             <p>{ `${companyAddressOne} ${companyAddressTwo}`}</p>
           </div>
 
-          <p className="text-[#0B58F4] font-bold">{`${greeting.includes(`${'Dear'.toLocaleLowerCase()}`) ?greeting : `Dear ${greeting}`},`}</p>
+          <p className="text-[#0B58F4] font-bold my-2">{`${greeting.includes(`${'Dear'.toLocaleLowerCase()}`) ?greeting : `Dear ${greeting}`},`}</p>
 
           {/* Paragraph 1 */}
           <p>

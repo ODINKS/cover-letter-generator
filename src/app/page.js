@@ -6,14 +6,14 @@ import { letterDBKey, getDBData, saveDBData } from "./util";
 import Swal from "sweetalert2";
 import CoverLetter from './components/CoverLetter';
 import Image from 'next/image';
+import Loader from './components/Loader';
 
 function Dashboard() {
     const [isMenuOpen, setIsMenuOpen] = useState(null)
-    const [isLoading, setIsLoading] = useState(false)
+    const [isLoading, setIsLoading] = useState(true)
     const [currentDB, setCurrentDB] = useState(null)
 
     function showMenu() {
-        console.log("clicked!!");
         setIsMenuOpen(true)
     }
     function closeMenu() {
@@ -29,6 +29,9 @@ function Dashboard() {
         async function getCurrentDB() {
             const currentLettersData = await fetchLettersData()
             setCurrentDB(currentLettersData)
+            setTimeout(()=>{
+                setIsLoading(false)
+            }, 2000)
         }
 
         getCurrentDB()
@@ -103,8 +106,15 @@ function Dashboard() {
                                 Cover Letter
                             </button>
                         </div>
-                        {/* Main Cover Letter Section */}
-                        <section className="flex flex-col items-center justify-center lg:items-start  lg:flex-row  lg:justify-between flex-wrap gap-y-8 ">
+
+                        {isLoading? 
+                        (<section className='flex flex-col gap-4'>
+                            <Loader />
+                            <Loader />
+                            <Loader />
+                        </section>):
+
+                        (<section className="flex flex-col items-center justify-center lg:items-start  lg:flex-row  lg:justify-between flex-wrap gap-y-8 ">
                             <Link href={'/preview-page'} className="xs:bg-red w-[90mm] md:w-[110mm] lg:w-[105mm] p-8 pt-16 border  h-[130mm] text-sm shadow-lg rounded-md flex justify-center items-center bg-slate-200" >
                                 <div className='flex flex-col justify-center items-center gap-y-4 '>
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8 text-[#0B58F4]">
@@ -132,7 +142,7 @@ function Dashboard() {
                                         paragraphThree={letter.paragraphThree}
                                     />)
                             })}
-                        </section>
+                        </section>)}
                     </div>
                 </section>
             </main>
