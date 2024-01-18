@@ -13,6 +13,7 @@ function Dashboard() {
     const [currentDB, setCurrentDB] = useState(null)
 
     function showMenu() {
+        console.log("clicked!!");
         setIsMenuOpen(true)
     }
     function closeMenu() {
@@ -39,7 +40,7 @@ function Dashboard() {
         <>
             <main className="flex min-h-screen">
                 {/* Section one */}
-                <section className={`w-[23%] fixed lg:static z-10 lg:z-0  lg:w-[18%] lg:px-8 bg-[#163677] min-h-screen flex-col items-center gap-y-10 ${isMenuOpen ? "flex" : "hidden lg:flex"}`}>
+                <section className={`w-[50%] md:w-[28%] px-2 fixed lg:static z-10 lg:z-0  lg:w-[20%]  2xl:px-2 bg-[#163677] min-h-screen flex-col items-center gap-y-10 ${isMenuOpen ? "flex" : "hidden lg:flex"}`}>
                     <button
                         onClick={closeMenu}
                         className={`border border-white self-end`}
@@ -77,22 +78,22 @@ function Dashboard() {
                 </section>
 
                 {/* Hamburger */}
-                <div
-                    onClick={showMenu}
+                {/* <div
+                    onClick={() => showMenu}
                     className={`mt-7 lg:hidden ${isMenuOpen ? 'hidden' : 'block'}`}
                 >
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                     </svg>
-                </div>
+                </div> */}
 
 
 
                 {/* Section 2 */}
                 <section className="w-full">
                     {/* Header */}
-                    <Header title={'My Dashboard'} email={'nicholas.okeke87@gmail.com'} />
-                    <div className="bg-[#cbdaf10f] w-full min-h-screen px-16 pt-12">
+                    <Header title={'My Dashboard'} email={'nicholas.okeke87@gmail.com'} showMenu={showMenu} />
+                    <div className="bg-[#cbdaf10f] w-full min-h-screen lg:px-16 pt-12">
                         {/* Document Buttons */}
                         <div className="bg-[#80ABED0F] py-1 flex gap-x-1 w-[14.5rem] rounded-md mb-8">
                             <button className="px-4 py-2 rounded-md">
@@ -104,7 +105,7 @@ function Dashboard() {
                         </div>
                         {/* Main Cover Letter Section */}
                         <section className="flex flex-col items-center justify-center lg:items-start  lg:flex-row  lg:justify-between flex-wrap gap-y-8 ">
-                            <Link href={'/preview-page'} className="w-[105mm] p-8 pt-16 border  h-[148.5mm] text-sm shadow-lg rounded-md flex justify-center items-center bg-slate-200" >
+                            <Link href={'/preview-page'} className="xs:bg-red w-[90mm] md:w-[110mm] lg:w-[105mm] p-8 pt-16 border  h-[130mm] text-sm shadow-lg rounded-md flex justify-center items-center bg-slate-200" >
                                 <div className='flex flex-col justify-center items-center gap-y-4 '>
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8 text-[#0B58F4]">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />

@@ -4,11 +4,22 @@ import Image from 'next/image'
 
 
 const Header = (props) => {
-    const {title, email} = props
+    const {title, email, isMenuOpen, showMenu} = props
   return (
     <>
         <header className='border border-slate-200 w-full flex flex-wrap lg:flex-nowrap justify-between px-6'>
-            <div className='self-center'>
+            <div className='self-center flex gap-x-5'>
+                 {/* Hamburger */}
+                 <div
+                    onClick={() => showMenu()}
+                    className={`lg:hidden ${isMenuOpen ? 'hidden' : 'block'}`}
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                    </svg>
+                </div>
+
+
                 <Link href={'/'} className='flex gap-x-3 font-semibold'>
                         {parse(title)}
                 </Link>
