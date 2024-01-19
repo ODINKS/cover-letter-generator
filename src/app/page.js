@@ -55,7 +55,7 @@ function Dashboard() {
 
                     {/* Logo */}
                     <div className='flex'>
-                        <Image width={0} height={0} src="https://res.cloudinary.com/dtduf2ehv/image/upload/v1705192985/samples/oo3nspjcwzd8mbvjeowh.jpg" alt="Logo" className='w-12 h-12 rounded-full' />
+                        <Image width={48} height={48} src="https://res.cloudinary.com/dtduf2ehv/image/upload/v1705192985/samples/oo3nspjcwzd8mbvjeowh.jpg" alt="Logo" className='rounded-full' />
 
                         <span className='text-white font-semibold self-center'>CVSTUDIO</span>
 

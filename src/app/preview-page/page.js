@@ -22,6 +22,7 @@ function PreviewPage() {
     const [closing, setClosing] = useState("");
     const [currentLetter, setCurrentLetter] = useState(null)
     // const [letterData, setLetterData] = useState("")
+    const [isMenuOpen, setIsMenuOpen] = useState(null)
 
 
 
@@ -54,6 +55,13 @@ function PreviewPage() {
         getCurrentData()
 
     }, [])
+
+    function showMenu() {
+        setIsMenuOpen(true)
+    }
+    function closeMenu() {
+        setIsMenuOpen(false)
+    }
 
     async function handleSubmit(event) {
         try {
@@ -168,11 +176,11 @@ function PreviewPage() {
 
 
     return (
-        <main className="flex h-auto">
+        <main className="flex">
 
             {/* Section 1 */}
-            <section className="w-[7%] flex flex-col items-center gap-y-8  bg-[#163677] pt-8">
-                <Image src="https://res.cloudinary.com/dtduf2ehv/image/upload/v1705192985/samples/oo3nspjcwzd8mbvjeowh.jpg" width={0} height={0} alt="Logo" className='lg:w-[2.5rem] lg:h-[2.5rem] w-[1.5rem] h-[1.5rem] rounded-full' />
+            <section className="xs:w-[15%] w-[12%] lg:w-[7%] flex flex-col items-center gap-y-8  bg-[#163677] pt-8">
+                <Image src="https://res.cloudinary.com/dtduf2ehv/image/upload/v1705192985/samples/oo3nspjcwzd8mbvjeowh.jpg" width={24} height={24} alt="Logo" className='lg:w-[2.5rem] lg:h-[2.5rem] w-[1.5rem] h-[1.5rem] rounded-full' />
                 <button className="bg-[#0B58F4] px-1 lg:px-4 lg:py-2 py-0.5 text-center text-white rounded-sm">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
@@ -184,7 +192,7 @@ function PreviewPage() {
             {/* Section 2 */}
             <section className="w-full bg-[#F8FAFE]">
                 {/* Header */}
-                <Header title={title} email={'nicholas.okeke87@gmail.com'} />
+                <Header title={title} email={'nicholas.okeke87@gmail.com'} showMenu={showMenu} />
 
                 {/* section 2a */}
                 <div className="flex flex-col lg:flex-row px-10 w-full">
@@ -193,7 +201,7 @@ function PreviewPage() {
                         <h1 className="mb-4">Cover Letter For Design</h1>
 
                         {/* Preview of the generated letter */}
-                        <div className="flex flex-col w-full max-w-2xl mx-auto p-8 pt-16 border  h-[245mm] text-sm shadow-lg rounded-md">
+                        <div className="flex flex-col w-full max-w-2xl mx-auto px-8 pb-16 md:pb-8 pt-16 border h-auto md:h-[245mm] text-sm shadow-lg rounded-md">
                             {/* Section one */}
                             {isloading ?
                                 <section>

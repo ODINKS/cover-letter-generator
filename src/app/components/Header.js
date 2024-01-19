@@ -27,7 +27,7 @@ const Header = (props) => {
 
             <div className='flex lg:justify-between gap-x-5 py-3'>
                 
-                    <Image src="https://res.cloudinary.com/dtduf2ehv/image/upload/v1705113902/j4utweqw9tl7lzlhkkff.jpg" alt="Logo" width={0} height={0} className='w-[3rem] h-[3rem] rounded-full border border-slate-300' />
+                    <Image src="https://res.cloudinary.com/dtduf2ehv/image/upload/v1705113902/j4utweqw9tl7lzlhkkff.jpg" alt="Logo" width={48} height={48} className='rounded-full border border-slate-300' />
                 <span className='self-center'>
                     {email}
                 </span>
