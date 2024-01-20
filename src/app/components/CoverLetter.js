@@ -5,7 +5,7 @@ function CoverLetter(props){
   const  {createdAt, companyName, companyAddressOne, companyAddressTwo, greeting, paragraphOne, paragraphTwo, paragraphThree,} = props
   return (
     <>
-      <div className="flex flex-col border xs:bg-red w-[90mm] md:w-[110mm] lg:w-[105mm] p-8 pt-16  h-[130mm] text-[0.5rem] shadow-lg rounded-md">
+      <div className="flex flex-col border xs:bg-red w-[87mm] md:w-[110mm] lg:w-[105mm] p-8 pt-16  h-[130mm] text-[0.5rem] shadow-lg rounded-md">
         {/* Section one */}
         <section className="flex justify-between flex-wrap">
           <div className=" flex flex-col justify-between">

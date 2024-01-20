@@ -7,8 +7,8 @@ const Header = (props) => {
     const {title, email, isMenuOpen, showMenu} = props
   return (
     <>
-        <header className='border border-slate-200 w-full flex flex-wrap lg:flex-nowrap justify-between px-6'>
-            <div className='self-center flex gap-x-5'>
+        <header className='border border-slate-200 w-full flex flex-wrap lg:flex-nowrap justify-between px-4'>
+            <div className='self-center flex gap-x-14'>
                  {/* Hamburger */}
                  <div
                     onClick={() => showMenu()}

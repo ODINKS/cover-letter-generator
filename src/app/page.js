@@ -3,21 +3,24 @@ import { useEffect, useState } from 'react';
 import Header from './components/Header';
 import Link from 'next/link'
 import { letterDBKey, getDBData, saveDBData } from "./util";
-import Swal from "sweetalert2";
 import CoverLetter from './components/CoverLetter';
 import Image from 'next/image';
 import Loader from './components/Loader';
 
 function Dashboard() {
-    const [isMenuOpen, setIsMenuOpen] = useState(null)
+    const [isMenuOpen, setIsMenuOpen] = useState(localStorage.getItem("isMenuOpen") || null === "true")
     const [isLoading, setIsLoading] = useState(true)
     const [currentDB, setCurrentDB] = useState(null)
 
+    
+
     function showMenu() {
         setIsMenuOpen(true)
+        localStorage.setItem("isMenuOpen", "true")
     }
     function closeMenu() {
         setIsMenuOpen(false)
+        localStorage.setItem("isMenuOpen", "false")
     }
 
     async function fetchLettersData() {
@@ -43,7 +46,7 @@ function Dashboard() {
         <>
             <main className="flex min-h-screen">
                 {/* Section one */}
-                <section className={`w-[50%] md:w-[28%] px-2 fixed lg:static z-10 lg:z-0  lg:w-[20%]  2xl:px-2 bg-[#163677] min-h-screen flex-col items-center gap-y-10 ${isMenuOpen ? "flex" : "hidden lg:flex"}`}>
+                <section className={`w-[50%] md:w-[28%] px-2 fixed lg:flex lg:static z-10 lg:z-0  lg:w-[20%]  2xl:px-2 bg-[#163677] min-h-screen flex-col items-center gap-y-10 ${isMenuOpen ? "flex" : "hidden"}`}>
                     <button
                         onClick={closeMenu}
                         className={`border border-white self-end`}
@@ -80,25 +83,15 @@ function Dashboard() {
                     </div>
                 </section>
 
-                {/* Hamburger */}
-                {/* <div
-                    onClick={() => showMenu}
-                    className={`mt-7 lg:hidden ${isMenuOpen ? 'hidden' : 'block'}`}
-                >
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-                    </svg>
-                </div> */}
-
 
 
                 {/* Section 2 */}
-                <section className="w-full">
+                <section className="w-full overflow-auto lg:overflow-visible">
                     {/* Header */}
                     <Header title={'My Dashboard'} email={'nicholas.okeke87@gmail.com'} showMenu={showMenu} />
-                    <div className="bg-[#cbdaf10f] w-full min-h-screen lg:px-16 pt-12">
+                    <div className="bg-[#cbdaf10f] w-full min-h-screen lg:px-16 pt-12 md:mx-0">
                         {/* Document Buttons */}
-                        <div className="bg-[#80ABED0F] py-1 flex gap-x-1 w-[14.5rem] rounded-md mb-8">
+                        <div className="bg-[#80ABED0F] py-1 flex gap-x-1 w-[14.5rem] rounded-md mb-8 mx-auto lg:mx-0">
                             <button className="px-4 py-2 rounded-md">
                                 Resume
                             </button>
@@ -108,14 +101,14 @@ function Dashboard() {
                         </div>
 
                         {isLoading? 
-                        (<section className='flex flex-col gap-4'>
+                        (<section className='flex flex-col gap-4 mx-8 lg:mx-0'>
                             <Loader />
                             <Loader />
                             <Loader />
                         </section>):
-
-                        (<section className="flex flex-col items-center justify-center lg:items-start  lg:flex-row  lg:justify-between flex-wrap gap-y-8 ">
-                            <Link href={'/preview-page'} className="xs:bg-red w-[90mm] md:w-[110mm] lg:w-[105mm] p-8 pt-16 border  h-[130mm] text-sm shadow-lg rounded-md flex justify-center items-center bg-slate-200" >
+                        
+                        (<section className="flex flex-col items-center justify-center lg:items-start lg:flex-row lg:justify-between xl:gap-16 xl:justify-start flex-wrap gap-y-8">
+                            <Link href={'/preview-page'} className="xs:bg-red w-[87mm] md:w-[110mm] lg:w-[105mm] p-8 pt-16 border h-[130mm] text-sm shadow-lg rounded-md flex justify-center items-center bg-slate-200" >
                                 <div className='flex flex-col justify-center items-center gap-y-4 '>
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8 text-[#0B58F4]">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />

@@ -22,7 +22,7 @@ function PreviewPage() {
     const [closing, setClosing] = useState("");
     const [currentLetter, setCurrentLetter] = useState(null)
     // const [letterData, setLetterData] = useState("")
-    const [isMenuOpen, setIsMenuOpen] = useState(null)
+    const [isMenuOpen, setIsMenuOpen] = useState(localStorage.getItem("isPreviewMenuOpen")|| null === "true")
 
 
 
@@ -58,9 +58,12 @@ function PreviewPage() {
 
     function showMenu() {
         setIsMenuOpen(true)
+        localStorage.setItem("isPreviewMenuOpen", "true")
     }
     function closeMenu() {
         setIsMenuOpen(false)
+        localStorage.setItem("isPreviewMenuOpen", "false")
+        
     }
 
     async function handleSubmit(event) {
@@ -179,9 +182,17 @@ function PreviewPage() {
         <main className="flex">
 
             {/* Section 1 */}
-            <section className="xs:w-[15%] w-[12%] lg:w-[7%] flex flex-col items-center gap-y-8  bg-[#163677] pt-8">
-                <Image src="https://res.cloudinary.com/dtduf2ehv/image/upload/v1705192985/samples/oo3nspjcwzd8mbvjeowh.jpg" width={24} height={24} alt="Logo" className='lg:w-[2.5rem] lg:h-[2.5rem] w-[1.5rem] h-[1.5rem] rounded-full' />
-                <button className="bg-[#0B58F4] px-1 lg:px-4 lg:py-2 py-0.5 text-center text-white rounded-sm">
+            <section className={`xs:w-[20%] w-[17%] lg:w-[7%] lg:flex  flex-col items-center gap-y-8 bg-[#163677]  ${isMenuOpen ? 'flex' : 'hidden'}`}>
+                <button
+                    onClick={closeMenu}
+                    className={`border border-white self-end`}
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 text-white lg:hidden">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
+                    </svg>
+                </button>
+                <Image src="https://res.cloudinary.com/dtduf2ehv/image/upload/v1705192985/samples/oo3nspjcwzd8mbvjeowh.jpg" width={24} height={24} alt="Logo" className='w-[2.5rem] h-[2.5rem] rounded-full' />
+                <button className="bg-[#0B58F4] px-4 py-2 text-center text-white rounded-sm">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                     </svg>
@@ -190,7 +201,7 @@ function PreviewPage() {
             </section>
 
             {/* Section 2 */}
-            <section className="w-full bg-[#F8FAFE]">
+            <section className="w-full bg-[#F8FAFE] border border-black">
                 {/* Header */}
                 <Header title={title} email={'nicholas.okeke87@gmail.com'} showMenu={showMenu} />
 
