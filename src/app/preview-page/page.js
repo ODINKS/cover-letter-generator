@@ -22,7 +22,7 @@ function PreviewPage() {
     const [closing, setClosing] = useState("");
     const [currentLetter, setCurrentLetter] = useState(null)
     // const [letterData, setLetterData] = useState("")
-    const [isMenuOpen, setIsMenuOpen] = useState(localStorage.getItem("isPreviewMenuOpen")|| null === "true")
+    const [isMenuOpen, setIsMenuOpen] = useState(typeof localStorage !=== 'undefined'? localStorage.getItem("isPreviewMenuOpen") === "true": null)
 
 
 
