@@ -8,7 +8,7 @@ import Image from 'next/image';
 import Loader from './components/Loader';
 
 function Dashboard() {
-    const [isMenuOpen, setIsMenuOpen] = useState(localStorage.getItem("isMenuOpen") || null === "true")
+    const [isMenuOpen, setIsMenuOpen] = useState(typeof localStorage !== 'undefined'? localStorage.getItem("isMenuOpen") === "true": null)
     const [isLoading, setIsLoading] = useState(true)
     const [currentDB, setCurrentDB] = useState(null)
 
